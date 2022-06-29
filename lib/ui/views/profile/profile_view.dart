@@ -8,10 +8,6 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _nameController = TextEditingController();
-    TextEditingController _ageController = TextEditingController();
-    TextEditingController _cityController = TextEditingController();
-
     return ViewModelBuilder<ProfileViewModel>.reactive(
       builder: (context, viewModel, child) {
         return Scaffold(
@@ -30,7 +26,7 @@ class ProfileView extends StatelessWidget {
                           decoration: const InputDecoration(
                             label: Text("Name"),
                           ),
-                          controller: _nameController,
+                          controller: viewModel.nameController,
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -43,7 +39,7 @@ class ProfileView extends StatelessWidget {
                           decoration: const InputDecoration(
                             label: Text("Age"),
                           ),
-                          controller: _ageController,
+                          controller: viewModel.ageController,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly
@@ -60,15 +56,12 @@ class ProfileView extends StatelessWidget {
                           decoration: const InputDecoration(
                             label: Text("City"),
                           ),
-                          controller: _cityController,
+                          controller: viewModel.cityController,
                         ),
                       ),
                       const SizedBox(height: 20),
                       TextButton(
-                        onPressed: () => viewModel.saveProfile(
-                            name: _nameController.text,
-                            age: int.parse(_ageController.text),
-                            city: _cityController.text),
+                        onPressed: () => viewModel.saveProfile(),
                         child: const Text("Save"),
                       ),
                       TextButton(
